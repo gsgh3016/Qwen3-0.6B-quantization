@@ -1,23 +1,23 @@
-from __future__ import annotations
-
 from typing import Iterable
 
-from .results import PromptReport, TokenPrediction
+from configs import inference_config
+
+from ..schemas.prediction_schemas import TokenPrediction, TokenPredictionResult
 
 
-def print_report(report: PromptReport) -> None:
+def print_report(prompt: str, predictions: TokenPredictionResult) -> None:
     """Pretty-print a prompt report to standard output."""
 
-    print(f"\nPrompt: {report.prompt}")
-    _print_top_k(report.top_k)
-    _print_greedy(report.greedy)
-    _print_sampled(report.sampled, report.temperature)
+    print(f"\nPrompt: {prompt}")
+    _print_top_k(predictions.top_k)
+    _print_greedy(predictions.greedy)
+    _print_sampled(predictions.sampled, inference_config.temperature)
 
 
-def _print_top_k(predictions: Iterable[TokenPrediction]) -> None:
-    predictions = list(predictions)
-    print(f"\nTop {len(predictions)} tokens:")
-    for index, prediction in enumerate(predictions, start=1):
+def _print_top_k(topk_predictions: Iterable[TokenPrediction]) -> None:
+    topk_predictions = list(topk_predictions)
+    print(f"\nTop {len(topk_predictions)} tokens:")
+    for index, prediction in enumerate(topk_predictions, start=1):
         print(
             f"{index}. Token ID: {prediction.token_id}, Token: '{prediction.token_text}', "
             f"Logit: {prediction.logit:.4f}, Probability: {prediction.probability:.4f}"

@@ -6,7 +6,7 @@ from typing import Any, Type, TypeVar
 
 import yaml
 
-CONFIG_PATH = Path(__file__).resolve().parent.parent / "experiments" / "configs" / "default.yaml"
+CONFIG_PATH = Path("./configs/default.yaml")
 
 C = TypeVar("C", bound="Config")
 
@@ -35,12 +35,12 @@ class ModelConfig(Config):
 
     name: str
     cache_dir: str
-    torch_dtype: str = "auto"
+    dtype: str = "auto"
     device_map: str = "auto"
 
     def model_kwargs(self) -> dict[str, Any]:
         return {
-            "torch_dtype": self.torch_dtype,
+            "dtype": self.dtype,
             "device_map": self.device_map,
             "cache_dir": self.cache_dir,
         }
@@ -77,12 +77,6 @@ def _load_config_file(path: Path = CONFIG_PATH) -> dict[str, Any]:
 _raw_config: dict[str, Any] = _load_config_file()
 
 model_config: ModelConfig = ModelConfig.from_dict(_raw_config.get("model", {}))
-inference_config: InferenceConfig = InferenceConfig.from_dict(_raw_config.get("inference", {}))
-
-__all__ = [
-    "Config",
-    "ModelConfig",
-    "InferenceConfig",
-    "model_config",
-    "inference_config",
-]
+inference_config: InferenceConfig = InferenceConfig.from_dict(
+    _raw_config.get("inference", {})
+)

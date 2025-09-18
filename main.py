@@ -1,10 +1,8 @@
-from __future__ import annotations
-
-from src import inference_config, model_config, run_prompt
+from src import predict
 
 
 def main() -> None:
-    run_prompt(model_config, inference_config)
+    predict()
 
 
 if __name__ == "__main__":

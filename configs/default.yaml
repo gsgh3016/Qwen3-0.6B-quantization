@@ -1,7 +1,7 @@
 model:
   name: "Qwen/Qwen3-0.6B"
   cache_dir: "./models/before_quantization"
-  torch_dtype: "auto"
+  dtype: "auto"
   device_map: "auto"
 inference:
   prompt: "1+1="
