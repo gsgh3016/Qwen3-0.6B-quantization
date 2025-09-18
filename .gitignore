@@ -212,3 +212,6 @@ data/*
 
 # uv
 uv.lock
+
+# vscode
+.vscode/*
