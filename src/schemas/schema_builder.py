@@ -1,19 +1,22 @@
-import torch
+from pathlib import Path
+import yaml
 
-from ..model import tokenizer
-from .prediction_schemas import TokenPrediction
+from .model_schemas import ModelConfig
 
 
-def build_token_prediction(
-    token_id: int, logits: torch.Tensor, probs: torch.Tensor
-) -> TokenPrediction:
-    token_text = tokenizer.decode(token_ids=token_id, skip_special_tokens=True)
-    # 줄 바꿈을 이스케이프하여 표시
-    token_text = token_text.replace("\n", "\\n").replace("\r", "\\r")
+def _build_model_config(path: Path = Path("./configs/default.yaml")) -> ModelConfig:
+    """Load configuration from YAML file."""
+    if not path.exists():
+        raise FileNotFoundError(f"Configuration file not found: {path}")
 
-    return TokenPrediction(
-        token_id=token_id,
-        token_text=token_text,
-        logit=logits[token_id].item(),
-        probability=probs[token_id].item(),
-    )
+    with path.open("r", encoding="utf-8") as handle:
+        data = yaml.safe_load(handle) or {}
+
+    if not isinstance(data, dict):
+        raise TypeError("Top-level configuration must be a mapping")
+
+    return ModelConfig(**data.get("model", {}))
+
+
+# Load configuration
+model_config = _build_model_config()

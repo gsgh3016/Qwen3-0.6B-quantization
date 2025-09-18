@@ -5,7 +5,7 @@ from transformers import (
     PreTrainedTokenizerFast,
 )
 
-from configs import model_config
+from .schemas import model_config
 
 
 tokenizer: PreTrainedTokenizerFast = AutoTokenizer.from_pretrained(

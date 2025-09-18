@@ -3,7 +3,5 @@ model:
   cache_dir: "./models/before_quantization"
   dtype: "auto"
   device_map: "auto"
-inference:
-  prompt: "1+1="
   top_k: 5
   temperature: 0.8

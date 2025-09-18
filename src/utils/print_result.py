@@ -1,17 +1,15 @@
 from typing import Iterable
 
-from configs import inference_config
-
-from ..schemas.prediction_schemas import TokenPrediction, TokenPredictionResult
+from ..schemas import TokenPrediction, TokenPredictionResult, model_config
 
 
-def print_report(prompt: str, predictions: TokenPredictionResult) -> None:
+def print_result(prompt: str, predictions: TokenPredictionResult) -> None:
     """Pretty-print a prompt report to standard output."""
 
     print(f"\nPrompt: {prompt}")
     _print_top_k(predictions.top_k)
     _print_greedy(predictions.greedy)
-    _print_sampled(predictions.sampled, inference_config.temperature)
+    _print_sampled(predictions.sampled, model_config.temperature)
 
 
 def _print_top_k(topk_predictions: Iterable[TokenPrediction]) -> None:
