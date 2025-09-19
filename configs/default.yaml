@@ -1,7 +1,0 @@
-model:
-  name: "Qwen/Qwen3-0.6B"
-  cache_dir: "./models/before_quantization"
-  dtype: "auto"
-  device_map: "auto"
-  top_k: 5
-  temperature: 0.8

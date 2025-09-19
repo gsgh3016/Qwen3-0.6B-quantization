@@ -1,0 +1,28 @@
+model:
+  original:
+    name: "Qwen/Qwen3-0.6B"
+    cache_dir: "./cache/models/original"
+    dtype: "auto"
+    device_map: "auto"
+  quantized:
+    cache_dir: "./cache/models/quantized"
+
+quantization_methods:
+  - name: "int8"
+    bits: 8
+    method: "dynamic"
+  - name: "int4"
+    bits: 4
+    method: "static"
+
+evaluation:
+  dataset: "squad"
+  cache_dir: "./data/"
+  metrics: ["accuracy", "perplexity", "latency"]
+  temperature: 0.8
+  top_k: 5
+
+experiment:
+  save_results: true
+  results_dir: "./cache/models/experiments"
+  compare_original: true

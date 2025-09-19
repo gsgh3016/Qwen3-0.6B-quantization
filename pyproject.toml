@@ -1,7 +1,7 @@
 [project]
 name = "qwen3-0-6b-quantization"
 version = "0.1.0"
-description = "Add your description here"
+description = "Quantization experiment framework for Qwen3-0.6B model with accuracy and performance comparison"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -10,4 +10,12 @@ dependencies = [
     "transformers>=4.56.1",
     "pyyaml>=6.0",
     "pydantic>=2.11.9",
+    "psutil>=5.9.0",
+    "datasets>=2.20.0",
+    "huggingface-hub>=0.25.0",
+    "tqdm>=4.66.0",
 ]
+
+[project.scripts]
+quantize = "quantize:main"
+evaluate = "evaluate:main"
